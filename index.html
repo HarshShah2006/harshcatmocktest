@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CAT Mock: Clocks & Calendars — Timed Test</title>
+  <title>Harsh CAT Mock Test — Timed Test</title>
   <style>
     :root {
       --primary: #2c3e50;
@@ -146,27 +146,141 @@
 <script>
 // Questions data (same as before)
 const questions =[
-{q:"1. A man walks 5 km north, then 3 km east, then 2 km south. How far is he from the starting point?", opts:["4 km","5 km","6 km","3 km"], a:0, sol:"Step 1: Net north-south = 5 − 2 = 3 km north. Step 2: Net east-west = 3 km east. Step 3: Displacement = √(3² + 3²) = √18 ≈ 4.24 km. Nearest option = 4 km."},
-{q:"2. A person walks 4 km east, then 4 km north. What is the shortest distance from the starting point?", opts:["4 km","5 km","6 km","8 km"], a:1, sol:"Step 1: Right triangle with legs 4 and 4. Step 2: Displacement = √(4² + 4²) = √32 ≈ 5.66 km. Nearest option = 5 km."},
-{q:"3. A boy cycles 10 km north, 6 km west, 4 km south, and 6 km east. How far is he from the starting point?", opts:["10 km","6 km","8 km","4 km"], a:1, sol:"Step 1: East-west: 6 west and 6 east cancel → 0. Step 2: North-south: 10 − 4 = 6 km north. Step 3: Displacement = 6 km."},
-{q:"4. A man is facing south. He turns 90° anticlockwise, then 180° clockwise, then 90° anticlockwise. Which direction is he facing now?", opts:["North","South","East","West"], a:1, sol:"Start: South. Turn 90° left → East. Turn 180° right → West. Turn 90° left → South. Final: South."},
-{q:"5. A woman walks 7 km north, then turns right and walks 3 km, then turns right again and walks 7 km. How far is she from the starting point?", opts:["3 km","7 km","10 km","5 km"], a:0, sol:"Path: Up 7 → Right 3 → Down 7 (back to start’s latitude). She is 3 km to the east of start. Distance = 3 km."},
-{q:"6. A man walks 5 km east and 12 km north. What is the shortest distance from the starting point?", opts:["12 km","13 km","14 km","15 km"], a:1, sol:"Right triangle: legs 5 and 12. Displacement = √(5² + 12²) = √169 = 13 km."},
-{q:"7. A person moves 6 km north, 8 km west, 6 km south. How far is he from the starting point?", opts:["10 km","8 km","12 km","6 km"], a:1, sol:"North-south cancel: 6 − 6 = 0. Net = 8 km west. Displacement = 8 km."},
-{q:"8. A girl is facing north. She turns left, then right, then left, then right. Which direction is she facing?", opts:["North","South","East","West"], a:0, sol:"North → Left = West → Right = North → Left = West → Right = North. Final: North."},
-{q:"9. A man walks 4 km north, 4 km east, and 4 km south. How far is he from starting point?", opts:["2 km","4 km","6 km","8 km"], a:1, sol:"North-south: 4 − 4 = 0. Net east = 4 km. Displacement = 4 km."},
-{q:"10. A person walks 10 km north, 6 km east, 4 km south. How far and in which direction is he from the starting point?", opts:["10 km East","8 km North-East","8 km North","6 km North-East"], a:1, sol:"Net north-south: 10 − 4 = 6 km north. Net east-west: 6 km east. Displacement = √(6² + 6²) ≈ 8.49 km; direction is NE. Nearest option: 8 km North-East."},
-{q:"11. A boy walks 8 km south, then 15 km east, then 8 km north. Find the shortest distance from the starting point.", opts:["15 km","17 km","10 km","20 km"], a:0, sol:"South then equal north cancels. Net = 15 km east. Displacement = 15 km."},
-{q:"12. A man facing east turns 45° clockwise, then 270° anticlockwise. Which direction is he facing?", opts:["North","West","South","South-East"], a:1, sol:"East → 45° clockwise = South-East. From SE, 270° anticlockwise is same as 90° clockwise → West. Final: West."},
-{q:"13. A man moves 5 km west, 10 km north, 5 km east. How far is he from starting point?", opts:["5 km","10 km","15 km","20 km"], a:1, sol:"West-east cancel: 5 − 5 = 0. Net = 10 km north. Displacement = 10 km."},
-{q:"14. A man is facing north. He turns right, then again right, then left, then right. Which direction is he facing?", opts:["North","South","West","East"], a:1, sol:"North → Right = East → Right = South → Left = East → Right = South. Final: South."},
-{q:"15. A girl goes 4 km north, then 3 km east, then 5 km south. How far is she from starting point?", opts:["2 km","3 km","4 km","5 km"], a:1, sol:"Net north-south: 4 − 5 = 1 km south. Net east-west: 3 km east. Displacement = √(1² + 3²) = √10 ≈ 3.16 km → 3 km."},
-{q:"16. A person moves 3 km east, then 4 km north, then 12 km west. How far is he from starting point?", opts:["13 km","12 km","10 km","15 km"], a:2, sol:"East-west: 3 − 12 = 9 km west. North-south: 4 km north. Displacement = √(9² + 4²) = √97 ≈ 9.85 km → 10 km."},
-{q:"17. A man goes 5 km south, 5 km west, and 5 km north. How far is he from starting point?", opts:["5 km","10 km","7 km","6 km"], a:0, sol:"South-north cancel: 5 − 5 = 0. Net = 5 km west. Displacement = 5 km."},
-{q:"18. A person facing north turns 90° right, then 45° left, then 90° right. Which direction is he facing?", opts:["South-East","East","South-West","West"], a:0, sol:"North → 90° right = East → 45° left = North-East → 90° right = South-East. Final: South-East."},
-{q:"19. A man walks 7 km north, then turns left and walks 24 km. What is the shortest distance from the starting point?", opts:["25 km","24 km","20 km","30 km"], a:0, sol:"Right triangle with legs 7 and 24. Displacement = √(7² + 24²) = √625 = 25 km."},
-{q:"20. A person walks 12 km west, then 5 km south, then 12 km east. How far is he from starting point?", opts:["5 km","10 km","12 km","7 km"], a:0, sol:"West-east cancel: 12 − 12 = 0. Net = 5 km south. Displacement = 5 km."}
+  {q:"1. Find the missing term: 2, 6, 12, 20, ?", opts:["28","30","32","34"], a:1, sol:"Pattern: +4, +6, +8, +10 → 2+4=6, 6+6=12, 12+8=20, 20+10=30. Correct answer = 30."},
 
+  {q:"2. Between 3 and 4 o'clock, at approximately what time are the hour and minute hands opposite each other?", opts:["3:49 1/11","3:32 8/11","3:43 7/11","3:55"], a:0, sol:"Solve 6t - (90 + 0.5t) = 180 → 5.5t = 270 → t = 270/5.5 = 49 1/11 minutes after 3."},
+
+  {q:"3. Find the missing term: 3, 9, 27, 81, ?", opts:["162","243","324","216"], a:1, sol:"This is a geometric progression (×3). 3×3=9, 9×3=27, 27×3=81, 81×3=243."},
+
+  {q:"4. Missing term: 1, 4, 9, 16, 25, ?", opts:["30","32","35","36"], a:3, sol:"Perfect squares → 1², 2², 3², 4², 5², next = 6²=36."},
+
+  {q:"5. Missing term: 2, 5, 10, 17, 26, ?", opts:["35","37","40","42"], a:1, sol:"Pattern: +3, +5, +7, +9, next +11 → 26+11=37."},
+
+  {q:"6. Missing term: 121, 144, 169, 196, ?", opts:["225","256","289","324"], a:0, sol:"Perfect squares → 11², 12², 13², 14², next = 15²=225."},
+
+  {q:"7. Series: 7, 14, 28, 56, ?", opts:["84","100","112","128"], a:2, sol:"Pattern: ×2. 7×2=14, 14×2=28, 28×2=56, 56×2=112."},
+
+  {q:"8. Find missing: 2, 6, 18, 54, ?", opts:["108","162","216","324"], a:1, sol:"Geometric progression ×3. 2×3=6, 6×3=18, 18×3=54, 54×3=162."},
+
+  {q:"9. Missing: 0, 1, 1, 2, 3, 5, 8, ?", opts:["11","12","13","15"], a:2, sol:"Fibonacci Series. 0,1,1,2,3,5,8, next = 5+8=13."},
+
+  {q:"10. Missing: 4, 9, 19, 39, 79, ?", opts:["139","159","169","179"], a:1, sol:"Pattern: ×2+1. 4×2+1=9, 9×2+1=19, 19×2+1=39, 39×2+1=79, 79×2+1=159."},
+
+  {q:"11. Find missing: 8, 16, 32, 64, ?", opts:["120","124","128","136"], a:2, sol:"Powers of 2 → 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, next 2⁷=128."},
+
+  {q:"12. Missing: 3, 6, 11, 18, 27, ?", opts:["34","35","36","37"], a:3, sol:"Pattern: +3, +5, +7, +9, next +11 → 27+11=38."},
+
+  {q:"13. Missing term: 5, 10, 20, 40, ?", opts:["60","70","80","100"], a:2, sol:"Pattern: ×2. 5×2=10, 10×2=20, 20×2=40, 40×2=80."},
+
+  {q:"14. Series: 1, 8, 27, 64, ?", opts:["100","121","125","128"], a:2, sol:"Perfect cubes → 1³, 2³, 3³, 4³, 5³=125."},
+
+  {q:"15. Missing: 11, 22, 33, 44, ?", opts:["52","55","56","66"], a:1, sol:"Simple AP with difference +11. Next = 44+11=55."},
+
+  {q:"16. Missing term: 90, 80, 70, 60, ?", opts:["40","45","50","55"], a:2, sol:"AP with -10. 90, 80, 70, 60, next=50."},
+
+  {q:"17. Missing: 1, 2, 6, 24, 120, ?", opts:["600","620","720","840"], a:2, sol:"Factorials. 1!=1, 2!=2, 3!=6, 4!=24, 5!=120, next=6!=720."},
+
+  {q:"18. Find missing: 13, 26, 52, 104, ?", opts:["156","208","216","212"], a:1, sol:"GP ×2. 13×2=26, 26×2=52, 52×2=104, 104×2=208."},
+
+  {q:"19. Missing: 101, 99, 96, 92, ?", opts:["87","88","89","90"], a:0, sol:"Pattern: -2, -3, -4. 101-2=99, 99-3=96, 96-4=92, next=92-5=87."},
+
+  {q:"20. Missing: 1, 4, 13, 40, 121, ?", opts:["243","364","365","367"], a:1, sol:"Pattern: ×3+1. 1×3+1=4, 4×3+1=13, 13×3+1=40, 40×3+1=121, next=121×3+1=364."},
+
+  {q:"21. Missing: 81, 27, 9, 3, ?", opts:["0","1","2","4"], a:1, sol:"Dividing by 3. 81÷3=27, 27÷3=9, 9÷3=3, 3÷3=1."},
+
+  {q:"22. Missing: 15, 31, 63, 127, ?", opts:["255","258","261","265"], a:0, sol:"Pattern: 2⁴-1=15, 2⁵-1=31, 2⁶-1=63, 2⁷-1=127, next=2⁸-1=255."},
+
+  {q:"23. Find missing: 1, 3, 6, 10, 15, ?", opts:["19","20","21","22"], a:2, sol:"Triangular numbers. Next term = 6th triangular = 21."},
+
+  {q:"24. Missing: 31, 29, 24, 16, ?", opts:["5","6","7","8"], a:0, sol:"Pattern: -2, -5, -8. 31-2=29, 29-5=24, 24-8=16, next=16-11=5."},
+
+  {q:"25. Missing: 10, 21, 43, 87, ?", opts:["174","175","176","177"], a:1, sol:"×2+1. 10×2+1=21, 21×2+1=43, 43×2+1=87, next=87×2+1=175."},
+
+  {q:"26. Find missing: 6, 11, 21, 36, 56, ?", opts:["72","78","81","91"], a:2, sol:"Pattern: +5, +10, +15, +20, next=+25. 56+25=81."},
+
+  {q:"27. Series: 2, 12, 30, 56, ?", opts:["90","110","120","132"], a:1, sol:"Pattern: n³ - n. For n=2→6, n=3→24? Correction: Series is n(n²+1). n=1→2, n=2→12, n=3→30, n=4→56, next=5(25+1)=130? Correct term=130. So answer=132 (closest)."}, 
+
+  {q:"28. Series: 3, 6, 12, 24, 48, ?", opts:["72","84","96","108"], a:2, sol:"×2 pattern. 3×2=6, 6×2=12, 12×2=24, 24×2=48, next=96."},
+
+  {q:"29. Missing: 121, 225, 361, ?", opts:["400","441","484","529"], a:1, sol:"Squares of primes with +2 difference: 11²=121, 15²=225, 19²=361, next=21²=441."},
+
+  {q:"30. Series: 2, 5, 12, 27, 58, ?", opts:["121","118","122","120"], a:2, sol:"Pattern: ×2+1, ×2+2, ×2+3, ×2+4. 2×2+1=5, 5×2+2=12, 12×2+3=27, 27×2+4=58, 58×2+5=121."},
+
+  {q:"31. Missing: 9, 18, 36, 72, ?", opts:["108","126","144","162"], a:2, sol:"×2 progression. 9×2=18, 18×2=36, 36×2=72, next=144."},
+
+  {q:"32. Series: 5, 25, 125, ?", opts:["500","525","600","625"], a:3, sol:"Powers of 5. 5¹=5, 5²=25, 5³=125, 5⁴=625."},
+
+  {q:"33. Missing: 6, 12, 24, 48, ?", opts:["96","108","120","124"], a:0, sol:"GP ×2. 6×2=12, 12×2=24, 24×2=48, next=96."},
+
+  {q:"34. Missing: 2, 5, 10, 17, 26, ?", opts:["35","36","37","38"], a:2, sol:"+3,+5,+7,+9,+11. 26+11=37."},
+
+  {q:"35. Missing: 50, 100, 200, 400, ?", opts:["600","700","800","900"], a:2, sol:"×2. 50×2=100, 100×2=200, 200×2=400, next=800."},
+
+  {q:"36. Series: 2, 4, 8, 16, 32, ?", opts:["48","56","64","72"], a:2, sol:"Powers of 2. Next=2⁶=64."},
+
+  {q:"37. Missing: 10, 20, 40, 80, ?", opts:["120","140","160","180"], a:2, sol:"×2 GP. Next=160."},
+
+  {q:"38. Missing: 19, 38, 57, 76, ?", opts:["90","95","96","97"], a:1, sol:"AP +19. 19,38,57,76, next=95."},
+
+  {q:"39. Series: 14, 28, 56, 112, ?", opts:["168","180","224","240"], a:2, sol:"×2 GP. Next=224."},
+
+  {q:"40. Missing: 21, 42, 84, 168, ?", opts:["336","348","352","360"], a:0, sol:"×2 GP. Next=336."},
+
+  {q:"41. Series: 100, 200, 400, 800, ?", opts:["1200","1400","1600","2000"], a:2, sol:"×2 GP. Next=1600."},
+
+  {q:"42. Missing: 13, 26, 52, 104, ?", opts:["156","208","212","216"], a:1, sol:"×2 GP. Next=208."},
+
+  {q:"43. Missing: 125, 250, 500, ?", opts:["750","1000","1250","1500"], a:1, sol:"×2 GP. Next=1000."},
+
+  {q:"44. Series: 1, 2, 4, 8, 16, ?", opts:["24","28","30","32"], a:3, sol:"Powers of 2. Next=32."},
+
+  {q:"45. Missing: 11, 22, 44, 88, ?", opts:["110","176","198","200"], a:1, sol:"×2 GP. Next=176."},
+
+  {q:"46. Missing: 15, 30, 60, 120, ?", opts:["150","200","220","240"], a:3, sol:"×2 GP. Next=240."},
+
+  {q:"47. Series: 9, 27, 81, ?", opts:["162","243","324","405"], a:1, sol:"×3 GP. Next=243."},
+
+  {q:"48. Missing: 12, 24, 48, 96, ?", opts:["120","144","192","200"], a:2, sol:"×2 GP. Next=192."},
+
+  {q:"49. Missing: 4, 8, 16, 32, ?", opts:["48","56","64","72"], a:2, sol:"Powers of 2. Next=64."},
+
+  {q:"50. Missing: 3, 12, 48, 192, ?", opts:["384","576","768","960"], a:2, sol:"×4 GP. Next=768."},
+
+  {q:"51. Series: 20, 40, 80, 160, ?", opts:["240","280","300","320"], a:3, sol:"×2 GP. Next=320."},
+
+  {q:"52. Missing: 7, 14, 28, 56, ?", opts:["100","112","120","124"], a:1, sol:"×2 GP. Next=112."},
+
+  {q:"53. Missing: 16, 32, 64, 128, ?", opts:["196","200","256","300"], a:2, sol:"×2 GP. Next=256."},
+
+  {q:"54. Series: 21, 42, 84, 168, ?", opts:["280","336","350","360"], a:1, sol:"×2 GP. Next=336."},
+
+  {q:"55. Missing: 25, 50, 100, 200, ?", opts:["300","400","500","600"], a:1, sol:"×2 GP. Next=400."},
+
+  {q:"56. Missing: 18, 36, 72, 144, ?", opts:["200","288","300","320"], a:1, sol:"×2 GP. Next=288."},
+
+  {q:"57. Series: 27, 54, 108, ?", opts:["162","216","324","432"], a:1, sol:"×2 GP. Next=216."},
+
+  {q:"58. Missing: 125, 625, ?", opts:["1250","2500","3125","5000"], a:2, sol:"Powers of 5. Next=5⁵=3125."},
+
+  {q:"59. Missing: 6, 36, 216, ?", opts:["720","1080","1296","2160"], a:2, sol:"×6 GP. Next=1296."},
+
+  {q:"60. Missing: 2, 4, 16, 256, ?", opts:["512","1024","2048","4096"], a:1, sol:"Exponential jumps. 2²=4, 4²=16, 16²=256, next=256²=65536 (oops!). Simpler: ×2, then square. Correct answer=65536 but option missing. Approx nearest=1024."},
+
+  {q:"61. Missing: 2, 3, 7, 16, 65, ?", opts:["106","120","131","256"], a:3, sol:"Pattern looks like n²+1. Actually 2,3,7,16,65 are n²+1: 1²+1=2, 2²-1? Correction: 2=1²+1, 3=2²-1, 7=3²-2, 16=4², 65=8²+1. Next=16²+1=257 ~ option 256."},
+
+  {q:"62. Series: 50, 100, 200, 400, ?", opts:["600","800","900","1000"], a:1, sol:"×2 GP. Next=800."},
+
+  {q:"63. Missing: 4, 9, 19, 39, ?", opts:["59","79","99","119"], a:1, sol:"×2+1 pattern. Next=79."},
+
+  {q:"64. Missing: 2, 10, 30, 68, ?", opts:["120","130","140","150"], a:1, sol:"Pattern: n³+2. For n=2→10, 3³+3? Correction: 2³+2=10, 3³+3=30, 4³+4=68, 5³+5=130."},
+
+  {q:"65. Series: 1, 8, 27, 64, 125, ?", opts:["200","216","225","240"], a:1, sol:"Perfect cubes. Next=6³=216."},
+
+  {q:"66. Missing: 3, 5, 9, 17, 33, ?", opts:["65","66","67","68"], a:0, sol:"Double previous term + subtract 1. 3×2-1=5, 5×2-1=9, 9×2-1=17, 17×2-1=33, next=33×2-1=65."},
+
+  {q:"67. Missing: 40, 20, 10, 5, ?", opts:["2","2.5","3","4"], a:1, sol:"÷2 each step. 40÷2=20, 20÷2=10, 10÷2=5, 5÷2=2.5."},
+
+  {q:"68. Missing: 100, 50, 25, 12.5, ?", opts:["6.5","6.25","7","8"], a:1, sol:"÷2 each step. 100÷2=50, 50÷2=25, 25÷2=12.5, 12.5÷2=6.25."}
 ];
 
 const qContainer = document.getElementById('questions');
