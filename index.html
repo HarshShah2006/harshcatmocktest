@@ -3,112 +3,329 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CAT Mock Test — Very Hard LR</title>
+  <title>CAT Mock: Logical Reasoning — Timed Test</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #quiz-container { display: none; }
-    .question { font-weight: bold; margin: 15px 0; }
-    .options { margin: 10px 0; }
-    button { margin: 10px 0; padding: 8px 14px; }
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #27ae60;
+      --danger: #e74c3c;
+      --bg: #f4f6f9;
+      --card-bg: #fff;
+      --radius: 12px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: var(--bg);
+      color: var(--primary);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: var(--secondary);
+      color: #fff;
+      padding: 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 15px 0;
+    }
+    .q {
+      margin: 18px 0;
+    }
+    .options label {
+      display: block;
+      margin: 8px 0;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #fafafa;
+    }
+    .options label:hover {
+      background: #eef6fd;
+      border-color: var(--secondary);
+    }
+    input[type=radio] {
+      margin-right: 10px;
+    }
+    #timer {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .solution {
+      background: #f9fafc;
+      padding: 12px;
+      border-left: 4px solid #ccc;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+    .correct {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .wrong {
+      color: var(--danger);
+      font-weight: bold;
+    }
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 1rem;
+      transition: background 0.2s ease;
+    }
+    button:hover:not(:disabled) {
+      background: #2980b9;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #result h3 {
+      margin-top: 0;
+      color: var(--secondary);
+    }
+    #result strong {
+      color: var(--primary);
+    }
+    .hide {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h2>CAT Logical Reasoning — Very Hard Mock Test (68 Q)</h2>
-  <div id="start-container">
-    <button onclick="startTest()">Start Test</button>
+  <header>
+    <h2>CAT-style Mock Test — Logical Reasoning</h2>
+    <div>Time left: <span id="timer">120:00</span></div>
+  </header>
+
+  <div class="card">
+    <strong>Instructions</strong>
+    <ul>
+      <li>Total questions: <strong>68</strong>. Question type: Multiple choice (4 options).</li>
+      <li>Marking: <strong>+3</strong> for correct, <strong>-1</strong> for incorrect, <strong>0</strong> for unattempted.</li>
+      <li>Duration: <strong>120 minutes</strong>. The test will <strong>auto-submit</strong> when time runs out.</li>
+      <li>When you submit (or time ends) you'll see your score, which questions were correct/wrong, and detailed solutions.</li>
+    </ul>
+    <div style="margin-top:12px">
+      <button id="startBtn">Start Test</button>
+      <button id="submitBtn" disabled>Submit Now</button>
+    </div>
   </div>
 
-  <div id="quiz-container">
-    <div id="timer"></div>
-    <div id="question" class="question"></div>
-    <div id="options" class="options"></div>
-    <button onclick="nextQuestion()">Next</button>
-  </div>
+  <form id="testForm" class="hide">
+    <div id="questions"></div>
+    <div style="margin:20px 0">
+      <button type="button" id="submitBtn2">Submit Test</button>
+    </div>
+  </form>
 
-  <script>
-    let current = 0;
-    let score = 0;
-    let timeLeft = 60 * 60; // 1 hour
-    let timerInterval;
+  <div id="result" class="card hide"></div>
 
-    const questions = [
-      {
-        q: "Six friends A, B, C, D, E, F are seated in a row facing north. Each belongs to a different city and profession. A is not on any extreme. The Doctor is second to the left of the person from Delhi. D is a Pilot. Who is the Lawyer?",
-        opts: ["A", "B", "C", "D"],
-        a: 1,
-        sol: "By elimination using the clues, B is the Lawyer."
-      },
-      {
-        q: "In a chess knockout: Q defeats R but loses to V. S defeats T but loses to W. U defeats W but loses to P. P defeats Q in the semifinal. Who is the finalist against P?",
-        opts: ["U", "V", "W", "S"],
-        a: 1,
-        sol: "From the match sequence, V reaches the final against P."
-      },
-      {
-        q: "Five companies (A–E) launched different products (Mobile, Laptop, Tablet, Smartwatch, Camera) in years 2015–2019. Clues given: A launched before Tablet. C launched Smartwatch but not in 2017. Camera was launched in 2019 (not by E). B launched Mobile. D launched just after A. Laptop was launched two years before Camera. Which company launched Tablet?",
-        opts: ["A", "B", "D", "E"],
-        a: 3,
-        sol: "From timeline deduction, E launched Tablet."
-      },
-      // ... continue until 68 questions, all in the same format
-    ];
+<script>
+// -------------------- Questions --------------------
+const questions = [
+/* -------------------- SET 1: COLORS & FLOORS -------------------- */
+{q:"1. Five friends A, B, C, D, and E live on different floors of a 5-floor building (1=lowest, 5=highest). They like different colors: Red, Blue, Green, Yellow, White. B lives above A but not on top. The one who likes Yellow lives on floor 1. D likes neither Red nor Blue. C lives immediately above the one who likes White. Who lives on floor 3?", opts:["A","B","C","D"], a:2, sol:"From constraints: C on 3rd floor."},
+{q:"2. Who likes Green?", opts:["A","B","C","D"], a:0, sol:"Green goes to A."},
+{q:"3. Which floor does E live on?", opts:["1","2","4","5"], a:3, sol:"E ends up on 5th floor."},
+{q:"4. If A lives on 2nd floor, who lives immediately below C?", opts:["A","B","D","E"], a:0, sol:"A is below C."},
+{q:"5. Which color does D like?", opts:["Red","Blue","Yellow","White"], a:1, sol:"D → Blue."},
 
-    function startTest() {
-      document.getElementById("start-container").style.display = "none";
-      document.getElementById("quiz-container").style.display = "block";
-      showQuestion();
-      startTimer();
-    }
+/* -------------------- SET 2: SUBJECTS & TEACHERS -------------------- */
+{q:"6. Four professors P, Q, R, S teach four subjects: Maths, Physics, Chemistry, Biology. Each teaches on a different day Mon–Thu. P teaches not on Monday or Tuesday. The Maths teacher teaches on Wednesday. Q teaches Chemistry. R does not teach on Monday. Who teaches Biology?", opts:["P","Q","R","S"], a:3, sol:"S gets Biology."},
+{q:"7. On which day does P teach?", opts:["Monday","Tuesday","Wednesday","Thursday"], a:3, sol:"P → Thursday."},
+{q:"8. Who teaches on Monday?", opts:["Q","R","S","P"], a:1, sol:"R → Monday."},
+{q:"9. Which subject does P teach?", opts:["Maths","Biology","Chemistry","Physics"], a:3, sol:"P → Physics."},
+{q:"10. Who teaches on Tuesday?", opts:["P","Q","R","S"], a:2, sol:"S → Tuesday."},
 
-    function showQuestion() {
-      const q = questions[current];
-      document.getElementById("question").innerText = (current+1) + ". " + q.q;
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
-      q.opts.forEach((opt, i) => {
-        const btn = document.createElement("button");
-        btn.innerText = opt;
-        btn.onclick = () => checkAnswer(i);
-        optionsDiv.appendChild(btn);
-        optionsDiv.appendChild(document.createElement("br"));
-      });
-    }
+/* -------------------- SET 3: CARS & COLORS -------------------- */
+{q:"11. Five cars (Honda, Ford, Tata, Kia, BMW) are painted in different colors (Red, Blue, Green, Yellow, Black). The Honda is not Red or Blue. Ford is Green. Kia is Yellow. Tata is not Black. BMW is Blue. Which car is Red?", opts:["Honda","Tata","Ford","BMW"], a:1, sol:"Tata → Red."},
+{q:"12. Which car is Black?", opts:["Honda","Ford","Kia","BMW"], a:0, sol:"Honda → Black."},
+{q:"13. Which color is Tata?", opts:["Green","Red","Blue","Black"], a:1, sol:"Tata → Red."},
+{q:"14. Which car is Yellow?", opts:["Kia","BMW","Tata","Ford"], a:0, sol:"Kia → Yellow."},
+{q:"15. Which color is Honda?", opts:["Black","Blue","Green","Red"], a:0, sol:"Honda → Black."},
 
-    function checkAnswer(choice) {
-      if (choice === questions[current].a) {
-        score++;
-        alert("Correct!\n" + questions[current].sol);
-      } else {
-        alert("Wrong!\n" + questions[current].sol);
-      }
-    }
+/* -------------------- SET 4: CITIES & JOBS -------------------- */
+{q:"16. Four people (A, B, C, D) live in four different cities (Delhi, Mumbai, Kolkata, Chennai) and work as (Doctor, Lawyer, Engineer, Teacher). A is not from Delhi or Chennai. The Teacher lives in Kolkata. B is Engineer but not from Delhi. D is Lawyer and not from Mumbai. Who is Doctor?", opts:["A","B","C","D"], a:0, sol:"A → Doctor."},
+{q:"17. Which city does B live in?", opts:["Delhi","Mumbai","Chennai","Kolkata"], a:2, sol:"B → Chennai."},
+{q:"18. Who is Lawyer?", opts:["A","B","C","D"], a:3, sol:"D → Lawyer."},
+{q:"19. Who lives in Kolkata?", opts:["A","B","C","D"], a:2, sol:"C → Kolkata."},
+{q:"20. What is C’s profession?", opts:["Doctor","Lawyer","Engineer","Teacher"], a:3, sol:"C → Teacher."},
 
-    function nextQuestion() {
-      current++;
-      if (current < questions.length) {
-        showQuestion();
-      } else {
-        endTest();
-      }
-    }
+/* -------------------- SET 5: SPORTS & RANKS -------------------- */
+{q:"21. Five students (P, Q, R, S, T) participate in different sports (Cricket, Football, Tennis, Hockey, Badminton). They also ranked 1–5. P is rank 2 and plays neither Cricket nor Hockey. Q plays Badminton but not rank 3. R’s rank is immediately after Q’s. S plays Football and is rank 5. T does not play Tennis. Who plays Tennis?", opts:["P","Q","R","T"], a:2, sol:"R → Tennis."},
+{q:"22. Who plays Cricket?", opts:["P","Q","S","T"], a:3, sol:"T → Cricket."},
+{q:"23. What is Q’s rank?", opts:["1","2","3","4"], a:0, sol:"Q → Rank 1."},
+{q:"24. Which sport does P play?", opts:["Badminton","Tennis","Hockey","Football"], a:2, sol:"P → Hockey."},
+{q:"25. Who is rank 3?", opts:["R","Q","T","P"], a:0, sol:"R → Rank 3."},
 
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-          endTest();
-        } else {
-          let min = Math.floor(timeLeft/60);
-          let sec = timeLeft%60;
-          document.getElementById("timer").innerText = `Time left: ${min}:${sec}`;
-          timeLeft--;
-        }
-      }, 1000);
-    }
+/* -------------------- SET 6: OCCUPATION & DESSERT -------------------- */
+{q:"26. Four friends W, X, Y, Z each have different jobs (Doctor, Pilot, Chef, Artist) and like different desserts (Cake, Ice cream, Pudding, Brownie). W is not Pilot. The Doctor likes Cake. The Artist is Z. Chef likes Pudding. X does not like Ice cream. Who is Pilot?", opts:["W","X","Y","Z"], a:2, sol:"Y → Pilot."},
+{q:"27. Which dessert does X like?", opts:["Ice cream","Brownie","Cake","Pudding"], a:1, sol:"X → Brownie."},
+{q:"28. What is W’s profession?", opts:["Doctor","Pilot","Chef","Artist"], a:0, sol:"W → Doctor."},
+{q:"29. Who likes Ice cream?", opts:["X","Y","Z","W"], a:2, sol:"Z → Ice cream."},
+{q:"30. What is Y’s profession?", opts:["Pilot","Chef","Artist","Doctor"], a:0, sol:"Y → Pilot."},
 
-    function endTest() {
-      clearInterval(timerInterval);
-      document.getElementById("quiz-container").innerHTML = `<h3>Test Completed!</h3><p>Your score: ${score}/${questions.length}</p>`;
-    }
-  </script>
+/* -------------------- SET 7: BOOKS & AUTHORS -------------------- */
+{q:"31. Five books (A, B, C, D, E) written by different authors (Shakespeare, Tolstoy, Dickens, Homer, Milton). Book A not by Shakespeare or Dickens. C by Milton. D not by Homer. E by Shakespeare. Who is author of B?", opts:["Dickens","Tolstoy","Milton","Homer"], a:1, sol:"B → Tolstoy."},
+{q:"32. Who wrote D?", opts:["Shakespeare","Homer","Milton","Dickens"], a:3, sol:"D → Dickens."},
+{q:"33. Which book did Homer write?", opts:["A","B","C","E"], a:0, sol:"A → Homer."},
+{q:"34. Who wrote A?", opts:["Homer","Tolstoy","Shakespeare","Milton"], a:0, sol:"A → Homer."},
+{q:"35. Which book is by Milton?", opts:["C","B","A","D"], a:0, sol:"C → Milton."},
+
+/* -------------------- SET 8: MOVIES & GENRES -------------------- */
+{q:"36. Four movies M1, M2, M3, M4 belong to different genres (Action, Drama, Comedy, Horror) and released in different years (2018, 2019, 2020, 2021). M1 is not Action or Drama. M2 is Comedy, released in 2020. The Drama movie released in 2018. Horror is M4. Which year did M3 release?", opts:["2018","2019","2020","2021"], a:3, sol:"M3 → 2021."},
+{q:"37. What is the genre of M1?", opts:["Comedy","Action","Horror","Drama"], a:1, sol:"M1 → Action."},
+{q:"38. Which movie is Horror?", opts:["M1","M2","M3","M4"], a:3, sol:"M4 → Horror."},
+{q:"39. Which year was Drama movie released?", opts:["2018","2019","2020","2021"], a:0, sol:"Drama → 2018."},
+{q:"40. Which movie is Comedy?", opts:["M1","M2","M3","M4"], a:1, sol:"M2 → Comedy."},
+
+/* -------------------- SET 9: HOUSES & PETS -------------------- */
+{q:"41. Five friends live in row houses numbered 1–5. Each has different pet (Dog, Cat, Parrot, Fish, Rabbit). A does not live at ends. Dog is with house 3. B has Cat and lives left of C. D does not live at end but owns Rabbit. E lives at end. Who owns Fish?", opts:["A","B","C","D"], a:2, sol:"C → Fish."},
+{q:"42. Who owns Rabbit?", opts:["A","B","C","D"], a:3, sol:"D → Rabbit."},
+{q:"43. Which house number does E live in?", opts:["1","2","4","5"], a:3, sol:"E → 5."},
+{q:"44. Who lives in house 3?", opts:["A","B","C","D"], a:0, sol:"A → 3 with Dog."},
+{q:"45. Who has Cat?", opts:["A","B","C","D"], a:1, sol:"B → Cat."},
+
+/* -------------------- SET 10: COMPANIES & POSITIONS -------------------- */
+{q:"46. Four employees (P, Q, R, S) work at different companies (Google, Amazon, Microsoft, Tesla) with positions (Manager, Analyst, Developer, Designer). P not at Google or Amazon. Manager works at Tesla. R is Developer. S is not Designer. Q works at Amazon. Who is Designer?", opts:["P","Q","R","S"], a:0, sol:"P → Designer."},
+{q:"47. Where does R work?", opts:["Google","Microsoft","Tesla","Amazon"], a:1, sol:"R → Microsoft."},
+{q:"48. What is Q’s position?", opts:["Developer","Analyst","Manager","Designer"], a:1, sol:"Q → Analyst."},
+{q:"49. Who is Manager?", opts:["S","R","P","Q"], a:0, sol:"S → Manager."},
+{q:"50. Where does P work?", opts:["Google","Amazon","Tesla","Microsoft"], a:0, sol:"P → Google."},
+
+/* -------------------- SET 11: COUNTRIES & CAPITALS -------------------- */
+{q:"51. Four countries (India, Japan, France, Brazil) have capitals (Delhi, Tokyo, Paris, Brasilia). A, B, C, D are ambassadors. A not for India. Japan’s ambassador is D. C’s country is not Brazil. B represents France. Who represents India?", opts:["A","B","C","D"], a:0, sol:"A → India."},
+{q:"52. Who represents Brazil?", opts:["A","B","C","D"], a:2, sol:"C → Brazil."},
+{q:"53. Which country does D represent?", opts:["Japan","France","Brazil","India"], a:0, sol:"D → Japan."},
+{q:"54. Which capital goes with France?", opts:["Paris","Tokyo","Delhi","Brasilia"], a:0, sol:"France → Paris."},
+{q:"55. Which capital goes with India?", opts:["Delhi","Tokyo","Paris","Brasilia"], a:0, sol:"India → Delhi."},
+
+/* -------------------- SET 12: FESTIVALS & MONTHS -------------------- */
+{q:"56. Four festivals (Diwali, Holi, Christmas, Eid) celebrated in different months (March, May, October, December). Diwali not in October or December. Holi in March. Eid in May. Who celebrates in December?", opts:["Diwali","Holi","Christmas","Eid"], a:2, sol:"Christmas → December."},
+{q:"57. When is Diwali celebrated?", opts:["March","May","October","December"], a:2, sol:"Diwali → October."},
+{q:"58. Which festival is in March?", opts:["Eid","Holi","Diwali","Christmas"], a:1, sol:"Holi → March."},
+{q:"59. Which festival is in May?", opts:["Holi","Eid","Diwali","Christmas"], a:1, sol:"Eid → May."},
+{q:"60. Which month is Christmas?", opts:["December","October","March","May"], a:0, sol:"Christmas → December."},
+
+/* -------------------- SET 13: SHOPS & PRODUCTS -------------------- */
+{q:"61. Five shops sell different products (Clothes, Shoes, Books, Electronics, Furniture). Shop 1 sells not Electronics. Shop 2 sells Books. Shop 3 sells neither Shoes nor Furniture. Shop 4 sells Electronics. Shop 5 sells Clothes. What does Shop 3 sell?", opts:["Books","Clothes","Shoes","Furniture"], a:2, sol:"Shop 3 → Shoes."},
+{q:"62. Which shop sells Electronics?", opts:["Shop 1","Shop 2","Shop 4","Shop 5"], a:2, sol:"Shop 4 → Electronics."},
+{q:"63. What does Shop 1 sell?", opts:["Furniture","Clothes","Books","Shoes"], a:0, sol:"Shop 1 → Furniture."},
+{q:"64. Which shop sells Books?", opts:["1","2","3","5"], a:1, sol:"Shop 2 → Books."},
+{q:"65. What does Shop 5 sell?", opts:["Clothes","Books","Electronics","Shoes"], a:0, sol:"Shop 5 → Clothes."},
+
+/* -------------------- SET 14: LANGUAGES & PEOPLE -------------------- */
+{q:"66. Four friends (M, N, O, P) each speak one language (English, Hindi, French, German). N speaks neither Hindi nor French. O speaks German. M does not speak French. P speaks Hindi. Who speaks English?", opts:["M","N","O","P"], a:1, sol:"N → English."},
+{q:"67. Who speaks German?", opts:["M","N","O","P"], a:2, sol:"O → German."},
+{q:"68. Who speaks French?", opts:["M","N","O","P"], a:0, sol:"M → French."}
+];
+// -------------------- Timer & Test Engine --------------------
+const qContainer = document.getElementById('questions');
+let duration = 120*60; 
+let timerInterval=null;
+const timerEl = document.getElementById('timer');
+const startBtn = document.getElementById('startBtn');
+const submitBtn = document.getElementById('submitBtn');
+const submitBtn2 = document.getElementById('submitBtn2');
+const form = document.getElementById('testForm');
+const resultDiv = document.getElementById('result');
+
+function formatTime(s){const m=Math.floor(s/60); const sec=s%60; return `${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;}
+
+function renderQuestions() {
+  qContainer.innerHTML = "";
+  questions.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='q card';
+    div.innerHTML = `<div><strong>Q${i+1}.</strong> ${item.q}</div>
+    <div class="options">${item.opts.map((o,idx)=>`<label><input type="radio" name="q${i}" value="${idx}"/> ${String.fromCharCode(65+idx)}. ${o}</label>`).join('')}</div>
+    <div class="solution hide" id="sol${i}"></div>`;
+    qContainer.appendChild(div);
+  });
+}
+
+function startTest(){
+  startBtn.disabled=true;
+  submitBtn.disabled=false;
+  form.classList.remove('hide');
+  renderQuestions();
+  startTimer();
+}
+
+function startTimer(){
+  let t = duration;
+  timerEl.textContent = formatTime(t);
+  timerInterval = setInterval(()=>{
+    t--; timerEl.textContent = formatTime(t);
+    if(t<=0){ clearInterval(timerInterval); autoSubmit(); }
+  },1000);
+}
+
+function autoSubmit(){
+  submitBtn.disabled=true; submitBtn2.disabled=true;
+  gradeTest(true);
+}
+
+function gradeTest(auto=false){
+  if(timerInterval) { clearInterval(timerInterval); }
+  let score=0; let attempted=0; let correctCount=0;
+  const perQ=[];
+  questions.forEach((item,i)=>{
+    const sel = document.querySelector(`input[name=q${i}]:checked`);
+    const solDiv = document.getElementById(`sol${i}`);
+    solDiv.classList.remove('hide'); solDiv.innerHTML = `<strong>Solution:</strong> ${item.sol}`;
+    if(sel){
+      attempted++;
+      const val = parseInt(sel.value,10);
+      if(val===item.a){ score += 3; perQ.push({i,ok:true}); correctCount++; sel.parentElement.style.fontWeight='700'; sel.parentElement.style.color='var(--accent)'; }
+      else { score -= 1; perQ.push({i,ok:false}); sel.parentElement.style.color='var(--danger)'; }
+    } else { perQ.push({i,ok:null}); }
+  });
+  resultDiv.classList.remove('hide');
+  resultDiv.innerHTML = `<h3>Result</h3>
+    <p><strong>Score:</strong> ${score} / ${questions.length*3}</p>
+    <p><strong>Attempted:</strong> ${attempted} &nbsp; <strong>Correct:</strong> ${correctCount} &nbsp; <strong>Wrong:</strong> ${attempted-correctCount}</p>
+    <p>${auto?'<em>Auto-submitted — time expired.</em>':''}</p>
+    <hr>
+    <div><strong>Per-question summary</strong></div>
+    ${questions.map((it,idx)=>{
+      const status = perQ[idx].ok===true ? '<span class="correct">Correct</span>' : (perQ[idx].ok===false ? '<span class="wrong">Wrong</span>' : '<span>Unattempted</span>');
+      const chosen = document.querySelector(`input[name=q${idx}]:checked`);
+      const chosenText = chosen ? it.opts[chosen.value] : '—';
+      return `<div style="margin:8px 0"><strong>Q${idx+1}</strong>: ${status} — Your answer: ${chosenText} — Correct answer: ${it.opts[it.a]}</div>`;
+    }).join('')}
+    <hr>
+    <div><strong>Detailed solutions shown under each question above.</strong></div>
+  `;
+  resultDiv.scrollIntoView({behavior:'smooth'});
+}
+
+startBtn.addEventListener('click', startTest);
+submitBtn2.addEventListener('click', gradeTest);
+submitBtn.addEventListener('click', gradeTest);
+</script>
 </body>
 </html>
+
